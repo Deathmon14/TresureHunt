@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AI Treasure Hunt Challenge</title>
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/tailwindcss/2.2.19/tailwind.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+  <style>
+    .bg-gradient {
+      background: linear-gradient(135deg, #4a00e0, #8e2de2);
+    }
+    .glow {
+      box-shadow: 0 0 15px rgba(142, 45, 226, 0.6);
+    }
+    .timer-bar {
+      transition: width 1s linear;
+    }
+    .fade-in {
+      animation: fadeIn 0.5s ease-in-out;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body class="bg-gray-900 text-white min-h-screen">
+  <!-- Header -->
+  <header class="bg-gradient p-4 shadow-lg">
+    <div class="container mx-auto flex justify-between items-center">
+      <h1 class="text-2xl md:text-3xl font-bold flex items-center">
+        <i class="fas fa-robot mr-3"></i>
+        AI Treasure Hunt
+      </h1>
+      <div class="flex items-center space-x-4">
+        <button id="leaderboardBtn" class="px-4 py-2 bg-indigo-700 hover:bg-indigo-600 rounded-lg transition">
+          <i class="fas fa-trophy mr-2"></i>Leaderboard
+        </button>
+        <div id="teamInfoDisplay" class="hidden md:flex items-center">
+          <span id="teamIdDisplay" class="font-bold ml-2"></span>
+          <span class="mx-2">|</span>
+          <span id="scoreDisplay" class="font-bold">0 pts</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Content -->
+  <main class="container mx-auto p-4 md:p-8">
+    <!-- Registration Section -->
+    <section id="registrationSection" class="fade-in mb-8 bg-gray-800 rounded-xl p-6 glow max-w-2xl mx-auto">
+      <h2 class="text-2xl font-bold mb-4 text-center">Join the Hunt</h2>
+      <p class="text-gray-300 mb-6 text-center">Register your team to begin the AI-powered treasure hunt challenge!</p>
+      
+      <div class="space-y-4">
+        <div>
+          <label for="teamId" class="block text-gray-300 mb-2">Team ID:</label>
+          <input type="text" id="teamId" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter a unique team identifier">
+        </div>
+        <div>
+          <label for="teamName" class="block text-gray-300 mb-2">Team Name:</label>
+          <input type="text" id="teamName" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter your team name">
+        </div>
+        <button id="registerBtn" class="w-full py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition font-bold">
+          <i class="fas fa-play-circle mr-2"></i>Start Adventure
+        </button>
+      </div>
+    </section>
+
+    <!-- Game Section -->
+    <section id="gameSection" class="hidden fade-in">
+      <div class="grid md:grid-cols-3 gap-6">
+        <!-- Left Column - Game Info -->
+        <div class="md:col-span-2 space-y-6">
+          <!-- Current Clue -->
+          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <div class="flex justify-between items-center mb-4">
+              <h3 class="text-xl font-bold">Clue Status</h3>
+              <div class="px-3 py-1 bg-indigo-700 rounded-lg text-sm" id="routeDisplay">Route A</div>
+            </div>
+            <div class="mb-6">
+              <div class="flex justify-between items-center mb-2">
+                <span class="text-gray-400">Time Remaining:</span>
+                <span id="timerDisplay" class="font-mono">05:00</span>
+              </div>
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div id="timerBar" class="bg-gradient rounded-full h-2 timer-bar" style="width: 100%"></div>
+              </div>
+            </div>
+            <div class="mb-4">
+              <p id="clueText" class="text-lg mb-4 leading-relaxed">Register your team to receive your first clue...</p>
+              <div id="bonusChallenge" class="hidden mt-4 p-4 bg-yellow-900 bg-opacity-30 border border-yellow-700 rounded-lg">
+                <h4 class="font-bold text-yellow-400 mb-2"><i class="fas fa-star mr-2"></i>BONUS CHALLENGE!</h4>
+                <p id="bonusChallengeText" class="mb-2"></p>
+              </div>
+            </div>
+            <div class="mt-4">
+              <input type="text" id="answerInput" class="w-full p-3 bg-gray-700 rounded-lg border border-gray-600 focus:outline-none focus:ring-2 focus:ring-indigo-500" placeholder="Enter your answer here">
+            </div>
+            <div class="mt-4 flex space-x-4">
+              <button id="submitBtn" class="flex-1 py-3 bg-indigo-600 hover:bg-indigo-500 rounded-lg transition font-bold">
+                <i class="fas fa-paper-plane mr-2"></i>Submit Answer
+              </button>
+              <button id="hintBtn" class="py-3 px-4 bg-purple-700 hover:bg-purple-600 rounded-lg transition">
+                <i class="fas fa-lightbulb mr-2"></i>Hint <span id="hintCost" class="text-xs">(-50 pts)</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- Feedback Display -->
+          <div id="feedbackSection" class="hidden bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-xl font-bold mb-4">Game Master's Response</h3>
+            <div id="feedbackContent" class="p-4 border border-gray-700 rounded-lg bg-gray-900"></div>
+          </div>
+        </div>
+
+        <!-- Right Column - Stats & Power-ups -->
+        <div class="space-y-6">
+          <!-- Team Stats -->
+          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-xl font-bold mb-4">Team Stats</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between">
+                <span class="text-gray-400">Score:</span>
+                <span id="scoreValue" class="font-bold">0</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Current Clue:</span>
+                <span id="clueNumber" class="font-bold">0</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Win Streak:</span>
+                <span id="streakValue" class="font-bold">0</span>
+              </div>
+              <div class="flex justify-between">
+                <span class="text-gray-400">Avg. Solve Time:</span>
+                <span id="avgTimeValue" class="font-bold">-</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Power-ups -->
+          <div class="bg-gray-800 rounded-xl p-6 shadow-lg">
+            <h3 class="text-xl font-bold mb-4">Power-ups</h3>
+            <div class="space-y-4">
+              <button id="timeFreezeBtn" class="w-full py-2 px-3 bg-blue-800 bg-opacity-50 hover:bg-blue-700 disabled:bg-gray-700 disabled:opacity-50 rounded-lg transition flex items-center">
+                <i class="fas fa-clock mr-3 text-blue-400"></i>
+                <div class="text-left">
+                  <div class="font-bold">Time Freeze</div>
+                  <div class="text-xs text-gray-400">Add 2 minutes to your timer</div>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Leaderboard Modal -->
+    <div id="leaderboardModal" class="hidden fixed inset-0 bg-black bg-opacity-75 flex items-center justify-center p-4 z-50">
+      <div class="bg-gray-800 rounded-xl p-6 shadow-lg w-full max-w-3xl">
+        <div class="flex justify-between items-center mb-6">
+          <h2 class="text-2xl font-bold">Team Leaderboard</h2>
+          <button id="closeLeaderboardBtn" class="text-gray-400 hover:text-white">
+            <i class="fas fa-times text-xl"></i>
+          </button>
+        </div>
+        <div class="overflow-x-auto">
+          <table class="w-full">
+            <thead>
+              <tr class="text-left border-b border-gray-700">
+                <th class="py-3 px-4">#</th>
+                <th class="py-3 px-4">Team</th>
+                <th class="py-3 px-4">Score</th>
+                <th class="py-3 px-4">Route</th>
+                <th class="py-3 px-4">Progress</th>
+                <th class="py-3 px-4">Avg Time</th>
+              </tr>
+            </thead>
+            <tbody id="leaderboardData">
+              <!-- Leaderboard data will be inserted here -->
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // Configuration
+    const API_BASE_URL = "http://localhost:8000"; // Leave empty for relative paths if hosted on same server
+    const TIMER_SECONDS = 300; // 5 minutes
+    const HINT_COST = 50;
+    
+    // Game state
+    let gameState = {
+      teamId: "",
+      teamName: "",
+      route: "",
+      clueId: 1,
+      score: 0,
+      currentClue: "",
+      streak: 0,
+      availablePowerups: [],
+      hasBonusChallenge: false,
+      bonusQuestion: "",
+      timerInterval: null,
+      timeRemaining: TIMER_SECONDS,
+      avgSolveTime: null
+    };
+
+    // DOM Elements
+    const els = {
+      registrationSection: document.getElementById("registrationSection"),
+      gameSection: document.getElementById("gameSection"),
+      teamId: document.getElementById("teamId"),
+      teamName: document.getElementById("teamName"),
+      registerBtn: document.getElementById("registerBtn"),
+      teamIdDisplay: document.getElementById("teamIdDisplay"),
+      teamInfoDisplay: document.getElementById("teamInfoDisplay"),
+      routeDisplay: document.getElementById("routeDisplay"),
+      clueText: document.getElementById("clueText"),
+      answerInput: document.getElementById("answerInput"),
+      submitBtn: document.getElementById("submitBtn"),
+      hintBtn: document.getElementById("hintBtn"),
+      feedbackSection: document.getElementById("feedbackSection"),
+      feedbackContent: document.getElementById("feedbackContent"),
+      scoreDisplay: document.getElementById("scoreDisplay"),
+      scoreValue: document.getElementById("scoreValue"),
+      clueNumber: document.getElementById("clueNumber"),
+      streakValue: document.getElementById("streakValue"),
+      avgTimeValue: document.getElementById("avgTimeValue"),
+      timeFreezeBtn: document.getElementById("timeFreezeBtn"),
+      skipClueBtn: document.getElementById("skipClueBtn"),
+      timerDisplay: document.getElementById("timerDisplay"),
+      timerBar: document.getElementById("timerBar"),
+      bonusChallenge: document.getElementById("bonusChallenge"),
+      bonusChallengeText: document.getElementById("bonusChallengeText"),
+      leaderboardBtn: document.getElementById("leaderboardBtn"),
+      leaderboardModal: document.getElementById("leaderboardModal"),
+      closeLeaderboardBtn: document.getElementById("closeLeaderboardBtn"),
+      leaderboardData: document.getElementById("leaderboardData"),
+      hintCost: document.getElementById("hintCost")
+    };
+
+    // Helper Functions
+    function formatTime(seconds) {
+      const mins = Math.floor(seconds / 60);
+      const secs = seconds % 60;
+      return `${mins.toString().padStart(2, '0')}:${secs.toString().padStart(2, '0')}`;
+    }
+
+    function startTimer() {
+      clearInterval(gameState.timerInterval);
+      gameState.timeRemaining = TIMER_SECONDS;
+      updateTimerDisplay();
+      
+      gameState.timerInterval = setInterval(() => {
+        gameState.timeRemaining--;
+        updateTimerDisplay();
+        
+        if (gameState.timeRemaining <= 0) {
+          clearInterval(gameState.timerInterval);
+          showFeedback("⏱️ Time's up! You will lose points if you don't submit an answer soon.");
+        }
+      }, 1000);
+    }
+
+    function updateTimerDisplay() {
+      els.timerDisplay.textContent = formatTime(gameState.timeRemaining);
+      const percentage = (gameState.timeRemaining / TIMER_SECONDS) * 100;
+      els.timerBar.style.width = `${percentage}%`;
+      
+      // Change color as time decreases
+      if (percentage < 20) {
+        els.timerBar.style.backgroundColor = "#ef4444";
+      } else if (percentage < 50) {
+        els.timerBar.style.backgroundColor = "#f59e0b";
+      }
+    }
+
+    function showFeedback(text) {
+      els.feedbackSection.classList.remove("hidden");
+      els.feedbackContent.innerHTML = text;
+    }
+
+    function updateGameDisplay() {
+      // Update header info
+      els.teamIdDisplay.textContent = gameState.teamId;
+      els.teamInfoDisplay.classList.remove("hidden");
+      els.scoreDisplay.textContent = `${gameState.score} pts`;
+      
+      // Update route display
+      els.routeDisplay.textContent = `Route ${gameState.route.split('_')[1].toUpperCase()}`;
+      
+      // Update clue text
+      if (gameState.clueId === null || gameState.isGameOver) {
+          els.clueText.textContent = `🏁 You've completed the treasure hunt! Congratulations! 🎉`;
+          clearInterval(gameState.timerInterval); // ✅ Stop the timer
+          els.answerInput.disabled = true;
+          els.submitBtn.disabled = true;
+          els.hintBtn.disabled = true;
+          els.timeFreezeBtn.disabled = true;
+          els.skipClueBtn.disabled = true;
+      } else {
+          els.clueText.textContent = `🧭 Await your next physical clue at the location!`;
+        }
+
+      
+      // Update stats
+      els.scoreValue.textContent = gameState.score;
+      els.clueNumber.textContent = gameState.clueId;
+      els.streakValue.textContent = gameState.streak;
+      
+      if (gameState.avgSolveTime) {
+        els.avgTimeValue.textContent = `${Math.round(gameState.avgSolveTime)}s`;
+      }
+      
+      // Update bonus challenge
+      if (gameState.hasBonusChallenge) {
+        els.bonusChallenge.classList.remove("hidden");
+        els.bonusChallengeText.textContent = gameState.bonusQuestion;
+      } else {
+        els.bonusChallenge.classList.add("hidden");
+      }
+      
+      // Update power-ups
+      els.timeFreezeBtn.disabled = !gameState.availablePowerups.includes("time_freeze");
+      els.skipClueBtn.disabled = !gameState.availablePowerups.includes("skip_clue");
+      
+      // Update hint cost
+      els.hintCost.textContent = `(-${HINT_COST} pts)`;
+    }
+
+    async function fetchWithError(url, options) {
+      try {
+        const response = await fetch(API_BASE_URL + url, options);
+        if (!response.ok) {
+          const errorData = await response.json();
+          throw new Error(errorData.detail || "An error occurred");
+        }
+        return await response.json();
+      } catch (error) {
+        console.error("API Error:", error);
+        showFeedback(`⚠️ Error: ${error.message}`);
+        throw error;
+      }
+    }
+
+    // API Functions
+    async function registerTeam() {
+      const teamId = els.teamId.value.trim();
+      const teamName = els.teamName.value.trim();
+      
+      if (teamId.length < 3) {
+        showFeedback("⚠️ Team ID must be at least 3 characters long.");
+        return;
+      }
+      
+      try {
+        const data = await fetchWithError("/register_team", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ team_id: teamId, team_name: teamName })
+        });
+        
+        gameState.teamId = teamId;
+        gameState.teamName = teamName || teamId;
+        gameState.route = data.route;
+        gameState.currentClue = data.clue;
+        
+        // Transition to game section
+        els.registrationSection.classList.add("hidden");
+        els.gameSection.classList.remove("hidden");
+        
+        // Get team status to initialize all data
+        await getTeamStatus();
+        
+        // Start the timer
+        startTimer();
+        
+        // Show welcome message
+        showFeedback(data.response);
+      } catch (error) {
+        // Error is already handled in fetchWithError
+      }
+    }
+
+    async function submitAnswer() {
+      const answer = els.answerInput.value.trim();
+      
+      if (answer.length < 2) {
+        showFeedback("⚠️ Please enter a valid answer (at least 2 characters).");
+        return;
+      }
+      
+      try {
+        const data = await fetchWithError("/verify_answer", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            team_id: gameState.teamId,
+            route: gameState.route,
+            team_answer: answer
+          })
+        });
+        
+        // Update game state
+        if (data.score !== undefined) gameState.score = data.score;
+        if (data.next_clue_id !== undefined) gameState.clueId = data.next_clue_id;
+        if (data.available_powerups !== undefined) gameState.availablePowerups = data.available_powerups;
+        if (data.has_bonus_challenge !== undefined) gameState.hasBonusChallenge = data.has_bonus_challenge;
+        
+        // Reset the timer
+        startTimer();
+        
+        // Clear the answer input
+        els.answerInput.value = "";
+        
+        // Show feedback
+        showFeedback(data.response);
+        
+        // Get full updated state
+        await getTeamStatus();
+      } catch (error) {
+        // Error is already handled in fetchWithError
+      }
+    }
+
+    async function buyHint() {
+      if (gameState.score < HINT_COST) {
+        showFeedback(`⚠️ Not enough points! You need ${HINT_COST} points to get a hint.`);
+        return;
+      }
+      
+      try {
+        const data = await fetchWithError("/buy_hint", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            team_id: gameState.teamId,
+            route: gameState.route
+          })
+        });
+        
+        // Update score
+        if (data.remaining_score !== undefined) {
+          gameState.score = data.remaining_score;
+        }
+        
+        // Show hint
+        showFeedback(`💡 HINT: ${data.response}`);
+        
+        // Update display
+        updateGameDisplay();
+      } catch (error) {
+        // Error is already handled in fetchWithError
+      }
+    }
+
+    async function usePowerup(type) {
+      try {
+        const data = await fetchWithError("/use_powerup", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({
+            team_id: gameState.teamId,
+            powerup_type: type
+          })
+        });
+        
+        // Process response
+        showFeedback(data.response);
+        
+        // If successful, update game state
+        if (!data.response.includes("❌")) {
+          // Remove the power-up from available list
+          gameState.availablePowerups = gameState.availablePowerups.filter(p => p !== type);
+          
+          // Handle specific power-up effects
+          if (type === "time_freeze") {
+            gameState.timeRemaining += 120; // Add 2 minutes
+            updateTimerDisplay();
+          } else if (type === "skip_clue") {
+            // Get updated game state
+            await getTeamStatus();
+          }
+        }
+        
+        // Update the display
+        updateGameDisplay();
+      } catch (error) {
+        // Error is already handled in fetchWithError
+      }
+    }
+
+    async function getTeamStatus() {
+      try {
+        const data = await fetchWithError(`/team_status/${gameState.teamId}`, {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        });
+        
+        // Update game state with all the data
+        gameState.route = data.route;
+        gameState.clueId = data.clue_id;
+        gameState.currentClue = data.current_clue;
+        gameState.score = data.score;
+        gameState.availablePowerups = data.available_powerups;
+        gameState.hasBonusChallenge = data.has_active_bonus;
+        gameState.bonusQuestion = data.bonus_question;
+        gameState.streak = data.streak;
+        gameState.avgSolveTime = data.average_solve_time;
+        gameState.isGameOver = data.is_game_over;
+        
+        // Update the display
+        updateGameDisplay();
+      } catch (error) {
+        // Error is already handled in fetchWithError
+      }
+    }
+
+    async function getLeaderboard() {
+      try {
+        const data = await fetchWithError("/leaderboard", {
+          method: "GET",
+          headers: { "Content-Type": "application/json" }
+        });
+        
+        // Clear existing data
+        els.leaderboardData.innerHTML = "";
+        
+        // Add each team to the leaderboard
+        data.leaderboard.forEach(team => {
+          const row = document.createElement("tr");
+          row.classList.add("border-b", "border-gray-700");
+          
+          // Highlight current team
+          if (team.team_id === gameState.teamId) {
+            row.classList.add("bg-indigo-900", "bg-opacity-30");
+          }
+          
+          row.innerHTML = `
+            <td class="py-3 px-4">${team.rank}</td>
+            <td class="py-3 px-4">${team.team_id}</td>
+            <td class="py-3 px-4 font-bold">${team.score}</td>
+            <td class="py-3 px-4">${team.route}</td>
+            <td class="py-3 px-4">
+              <div class="w-full bg-gray-700 rounded-full h-2">
+                <div class="bg-indigo-600 rounded-full h-2" style="width: ${team.completion_percent}%"></div>
+              </div>
+              <div class="text-xs mt-1">${team.completion_percent}%</div>
+            </td>
+            <td class="py-3 px-4">${team.average_time ? Math.round(team.average_time) + 's' : '-'}</td>
+          `;
+          
+          els.leaderboardData.appendChild(row);
+        });
+        
+        // Show the modal
+        els.leaderboardModal.classList.remove("hidden");
+      } catch (error) {
+        // Error is already handled in fetchWithError
+      }
+    }
+
+    // Event Listeners
+    els.registerBtn.addEventListener("click", registerTeam);
+    els.submitBtn.addEventListener("click", submitAnswer);
+    els.hintBtn.addEventListener("click", buyHint);
+    els.timeFreezeBtn.addEventListener("click", () => usePowerup("time_freeze"));
+    //els.skipClueBtn.addEventListener("click", () => usePowerup("skip_clue"));
+    els.leaderboardBtn.addEventListener("click", getLeaderboard);
+    els.closeLeaderboardBtn.addEventListener("click", () => els.leaderboardModal.classList.add("hidden"));
+    
+    // Enter key for answer submission
+    els.answerInput.addEventListener("keypress", function(event) {
+      if (event.key === "Enter") {
+        event.preventDefault();
+        submitBtn.click();
+      }
+    });
+    
+    // Auto-refresh leaderboard every 30 seconds when modal is open
+    setInterval(() => {
+      if (!els.leaderboardModal.classList.contains("hidden")) {
+        getLeaderboard();
+      }
+    }, 30000);
+
+    // Check for saved team info in localStorage for auto-login
+    window.addEventListener("DOMContentLoaded", function() {
+      const savedTeamId = localStorage.getItem("treasureHuntTeamId");
+      const savedTeamName = localStorage.getItem("treasureHuntTeamName");
+      
+      if (savedTeamId) {
+        els.teamId.value = savedTeamId;
+        if (savedTeamName) els.teamName.value = savedTeamName;
+      }
+    });
+  </script>
+</body>
+</html>
