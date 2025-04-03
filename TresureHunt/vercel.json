@@ -1,12 +1,11 @@
 {
-    "functions": {
-      "api/*.py": {
-        "runtime": "python3.9"
-      }
-    },
-    "routes": [
-      { "src": "/api/(.*)", "dest": "/api/app.py" },
-      { "src": "/(.*)", "dest": "/frontend/$1" }
-    ]
-  }
-  
+  "functions": {
+    "api/*.py": {
+      "runtime": "python@3.9.13"
+    }
+  },
+  "routes": [
+    { "src": "/api/(.*)", "dest": "/api/app.py" },
+    { "src": "/(.*)", "dest": "/frontend/$1" }
+  ]
+}
