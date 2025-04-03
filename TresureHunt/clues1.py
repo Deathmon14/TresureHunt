@@ -1,38 +1,133 @@
 clues = {
     "route_a": {
-        1: {"question": "Find the place where ancient scrolls are stored.", "answer": "Ancient Archives", "next_clue": 2},
-        2: {"question": "Inside the Archives, access the high-security node.", "answer": "Cybersecurity Lab", "next_clue": 3},
-        3: {"question": "PRISM flagged this vault as corrupted — locate it.", "answer": "Quarantine Bay", "next_clue": 4},
-        4: {"question": "Decode the inscription under the mainframe casing.", "answer": "PRISM Core", "next_clue": 5},
-        5: {"question": "SHADE’s last ping was from the east wing terminal.", "answer": "Echo Terminal", "next_clue": 6},
-        6: {"question": "Final challenge: Solve the vault puzzle.", "answer": "Secret Vault", "next_clue": None}
+        1: {
+            "question": "SJGP : Shift your thinking, just like shifting letters. Near the place that cares for the unwell, where names are listed with purpose, a hidden current whispers your next step.",
+            "answer": "PGDM",
+            "next_clue": 2
+        },
+        2: {
+            "question": "'Mysterious Orangutans Nimbly Keep Everything Yawning' and 'Puzzling Animals Roam Keenly.' Beneath the embrace of two entwined giants, where hearts often meet, your next step awaits.",
+            "answer": "Monkey Park",
+            "next_clue": 3
+        },
+        3: {
+            "question": "It’s not a hall, yet crowds will stand, a court for sport, or a stage so grand. Cheers arise, feet race and spin, a place where victories begin. But don’t look up where banners fly, search down low where scraps may lie. Near what’s tossed and cast away, your next step is in the fray.",
+            "answer": "Basketball Court",
+            "next_clue": 4
+        },
+        4: {
+            "question": "A taste of Mumbai, but not by the sea, tucked near a hostel, waiting for thee.",
+            "answer": "Goli",
+            "next_clue": 5
+        },
+        5: {
+            "question": "No hoops, no three-point line, just a net and a ball flying high each time. As you seek wisdom and a fresh start, look where purity and knowledge are painted on the walls.",
+            "answer": "Volleyball Court",
+            "next_clue": 6
+        },
+        6: {
+            "question": "You've traveled far, with riddles untangled, through secrets hidden and clues well handled. Now think back—where did this begin? Return to the start, where machines think within.",
+            "answer": "212 Lab",
+            "next_clue": None
+        }
     },
     "route_b": {
-        1: {"question": "Locate the encrypted data center.", "answer": "Data Storage", "next_clue": 2},
-        2: {"question": "Decrypt the passcode at the control room.", "answer": "Control Room", "next_clue": 3},
-        3: {"question": "Trace the backup logs to the silent corridor.", "answer": "Archive Tunnel", "next_clue": 4},
-        4: {"question": "Find the vent node connected to SHADE’s output.", "answer": "Hidden Uplink", "next_clue": 5},
-        5: {"question": "SHADE’s core is behind the biometric lock. Where?", "answer": "Biometric Chamber", "next_clue": 6},
-        6: {"question": "Final challenge: Solve the vault puzzle.", "answer": "Secret Vault", "next_clue": None}
+        1: {
+            "question": "In a place where warm treats and sweet aromas fill the air, a secret lies beyond what meets the eye. As you browse for your next bite, look beyond the choices—sometimes, what you seek is just behind the menu.",
+            "answer": "Kateel Bakery",
+            "next_clue": 2
+        },
+        2: {
+            "question": "6 9 18 19 20   25 5 1 18   2 12 15 3 11. Numbers hold the key—decode them to find where fresh journeys begin. As you navigate the space, stay alert—danger is marked in red, but safety hides what you seek.",
+            "answer": "First Year Block",
+            "next_clue": 3
+        },
+        3: {
+            "question": "Not a river, not the sea, yet here the water’s wild and free. A bubbling dance, a liquid cheer, your journey flows—you're almost near. No towering giant, no ancient old, but leaves still whisper secrets untold. Near the fountain, low and small, find the clue where shadows fall.",
+            "answer": "Fountain",
+            "next_clue": 4
+        },
+        4: {
+            "question": "Where the unwanted finds purpose, and what’s discarded flows anew, a quiet transformation takes place. Nearby, nature’s broadest hands sway gently—look among them to uncover your next step.",
+            "answer": "Waste Water Treatment Plant",
+            "next_clue": 5
+        },
+        5: {
+            "question": "A house that stands, yet few call it home. Silent halls, unanswered doors—does anyone truly stay? But outside, a silent watcher remains. Rest where he does, and look below for what’s been left behind.",
+            "answer": "Guest House",
+            "next_clue": 6
+        },
+        6: {
+            "question": "You've traveled far, with riddles untangled, through secrets hidden and clues well handled. Now think back—where did this begin? Return to the start, where machines think within.",
+            "answer": "212 Lab",
+            "next_clue": None
+        }
     },
     "route_c": {
-        1: {"question": "Track the AI’s signal to the first location.", "answer": "Main Server", "next_clue": 2},
-        2: {"question": "Find the master key in the network hub.", "answer": "Network Hub", "next_clue": 3},
-        3: {"question": "Enter the portal marked with a red prism.", "answer": "Simulation Room", "next_clue": 4},
-        4: {"question": "Solve the binary riddle near the interface node.", "answer": "Logic Gate", "next_clue": 5},
-        5: {"question": "What system was SHADE trying to override?", "answer": "PRISM Subnet", "next_clue": 6},
-        6: {"question": "Final challenge: Solve the vault puzzle.", "answer": "Secret Vault", "next_clue": None}
+        1: {
+            "question": "Empty most days, but when tests are near, students rush in with hope and fear. Silent prayers, whispered low, seeking luck before they go. But don’t just stop where candles gleam, follow the steps where feet redeem. Three or seven, round they trace, near this path, you'll find your place.",
+            "answer": "Temple",
+            "next_clue": 2
+        },
+        2: {
+            "question": "Between hard work and honor, a secret lies in wait. Look between the words, and don't hesitate!",
+            "answer": "NMIT Stone Logo",
+            "next_clue": 3
+        },
+        3: {
+            "question": "NVGZO HPVOVGLM.",
+            "answer": "Metal Skeleton",
+            "next_clue": 4
+        },
+        4: {
+            "question": "It’s not a hall, yet crowds will stand, a court for sport, or a stage so grand. Cheers arise, feet race and spin, a place where victories begin. But don’t look up where banners fly, search down low where scraps may lie. Near what’s tossed and cast away, your next step is in the fray.",
+            "answer": "BBC",
+            "next_clue": 5
+        },
+        5: {
+            "question": "Wings spread wide, yet still it stays, a resting spot for midday haze. Once it soared, fierce and free, guarding skies from land to sea. From '84 to 2010 it flew with pride, now in stillness, its stories abide. Seek the past in metal and steel, where history’s touch you can feel.",
+            "answer": "Airplane",
+            "next_clue": 6
+        },
+        6: {
+            "question": "You've traveled far, with riddles untangled, through secrets hidden and clues well handled. Now think back—where did this begin? Return to the start, where machines think within.",
+            "answer": "212 Lab",
+            "next_clue": None
+        }
     },
     "route_d": {
-        1: {"question": "Begin at the abandoned AI research node.", "answer": "Abandoned Server", "next_clue": 2},
-        2: {"question": "Find the backdoor port hidden in plain sight.", "answer": "Port 404", "next_clue": 3},
-        3: {"question": "SHADE left coordinates at this central hub.", "answer": "Relay Station", "next_clue": 4},
-        4: {"question": "Search for the glitching module behind the library stack.", "answer": "Glitch Module", "next_clue": 5},
-        5: {"question": "Crack the firewall and access the last datastream.", "answer": "SHADE Terminal", "next_clue": 6},
-        6: {"question": "Final challenge: Solve the vault puzzle.", "answer": "Secret Vault", "next_clue": None}
+        1: {
+            "question": "Where warm bites bring comfort near, A hidden seat, quiet and clear. In a corner, out of sight, Beneath the rest, your clue is tight. Crack the numbers, take a chance— They'll guide you to your next advance: 13-1-7-7-9  19-20-1-20-9-15-14 ",
+            "answer": "Maggie Station",
+            "next_clue": 2
+        },
+        2: {
+            "question": "Neither home nor store, yet food is found—where queues are long and voices sound.",
+            "answer": "Canteen",
+            "next_clue": 3
+        },
+        3: {
+            "question": "A board holds messages, both hidden and neat. Not tucked away, not out of view— What you seek is waiting for you. Crack the code to find the way:19-20-1-6-6  17-21-1-18-20-5-18-19.",
+            "answer": "Staff Quarters",
+            "next_clue": 4
+        },
+        4: {
+            "question": "Behind the place where structures rise, a drawing of a man with many limbs lies. Face him, then turn and see—where nature meets mystery. To find what you seek, decode this plan: ERGIFEREZM NZM.",
+            "answer": "Vitruvian man",
+            "next_clue": 5
+        },
+        5: {
+            "question": "A triangular face, rising tall, The finest structure among them all.A prism of light, clear as the air, Reflecting sights beyond compare. But don’t just gaze at glass so bright, Look where shadows steal the light. Tucked away in a wooden embrace,A hidden corner holds your next chase.",
+            "answer": "Mirror Corner",
+            "next_clue": 6
+        },
+        6: {
+            "question": "You've traveled far, with riddles untangled, through secrets hidden and clues well handled. Now think back—where did this begin? Return to the start, where machines think within.",
+            "answer": "212 Lab",
+            "next_clue": None
+        }
     }
 }
-
 
 # Bonus challenges that can be triggered randomly
 bonus_challenges = [
