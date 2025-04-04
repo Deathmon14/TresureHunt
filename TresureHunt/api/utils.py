@@ -1,13 +1,13 @@
 from functools import lru_cache
 import httpx
-from config import settings
+from .config import settings
 from typing import Optional
 import logging
 import json
 import asyncio
 import random
 from difflib import SequenceMatcher
-from clues1 import bonus_challenges
+from .clues1 import bonus_challenges
 import os
 
 logging.basicConfig(
