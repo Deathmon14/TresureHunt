@@ -11,7 +11,6 @@ from .clues1 import bonus_challenges
 import os
 
 logging.basicConfig(
-    filename='treasure_hunt.log',
     level=logging.INFO,
     format='%(asctime)s - %(levelname)s - %(message)s'
 )
