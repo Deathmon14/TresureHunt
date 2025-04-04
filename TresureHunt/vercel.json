@@ -1,12 +1,7 @@
 {
   "routes": [
     { "src": "/api/(.*)", "dest": "/api/app.py" },
-    { "src": "/register_team", "dest": "/api/app.py" },
-    { "src": "/verify_answer", "dest": "/api/app.py" },
-    { "src": "/buy_hint", "dest": "/api/app.py" },
-    { "src": "/use_powerup", "dest": "/api/app.py" },
-    { "src": "/leaderboard", "dest": "/api/app.py" },
-    { "src": "/team_status/(.*)", "dest": "/api/app.py" },
+    { "src": "/", "dest": "/frontend/index.html" },
     { "src": "/(.*)", "dest": "/frontend/$1" }
   ]
 }
