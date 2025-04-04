@@ -1,5 +1,5 @@
 # api/app.py
-from mainv52 import app  # Import your FastAPI app from mainv52.py
+from .mainv52 import app  # Import your FastAPI app from mainv52.py
 import os
 
 # Vercel expects an object named 'app'
