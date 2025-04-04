@@ -35,7 +35,7 @@ def generate_hint_static(answer: str) -> str:
     """Generate a simple hint without LLM"""
     return f"🔍 HINT: The answer starts with '{answer[0]}' and has {len(answer)} letters."
 
-@app.post("/api/register_team")
+@app.post("/register_team")
 @limiter.limit("10/minute")
 async def register_team(request: Request, data: dict):
     try:
