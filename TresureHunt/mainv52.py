@@ -35,7 +35,7 @@ def generate_hint_static(answer: str) -> str:
     """Generate a simple hint without LLM"""
     return f"🔍 HINT: The answer starts with '{answer[0]}' and has {len(answer)} letters."
 
-@app.post("/register_team")
+@app.post("/api/register_team")
 @limiter.limit("10/minute")
 async def register_team(request: Request, data: dict):
     try:
@@ -83,7 +83,7 @@ async def register_team(request: Request, data: dict):
         raise HTTPException(status_code=500, detail=f"Error registering team: {str(e)}")
 
 # Update the verify_answer function in mainv4.py
-@app.post("/verify_answer")
+@app.post("/api/verify_answer")
 @limiter.limit("5/minute")
 async def verify_answer(request: Request, data: dict):
     try:
@@ -248,7 +248,7 @@ async def handle_bonus_challenge(team_id: str, team_answer: str) -> dict:
     except Exception as e:
         logging.error(f"Error handling bonus: {str(e)}")
         return {"response": f"Error processing bonus: {str(e)}"}
-@app.post("/buy_hint")
+@app.post("/api/buy_hint")
 @limiter.limit("3/minute")
 async def buy_hint(request: Request, data: dict):
     try:
@@ -286,7 +286,7 @@ async def buy_hint(request: Request, data: dict):
         logging.error(f"Error getting hint: {str(e)}")
         return {"response": f"Error getting hint: {str(e)}"}
 
-@app.post("/use_powerup")
+@app.post("/api/use_powerup")
 @limiter.limit("5/minute")
 async def use_powerup(request: Request, data: dict):
     try:
@@ -336,7 +336,7 @@ async def use_powerup(request: Request, data: dict):
         return {"response": f"Error using power-up: {str(e)}"}
 
 
-@app.get("/leaderboard")
+@app.get("/api/leaderboard")
 async def get_leaderboard():
     try:
         current_leaderboard = []
@@ -367,7 +367,7 @@ async def get_leaderboard():
         logging.error(f"Error getting leaderboard: {str(e)}")
         return {"leaderboard": [], "error": str(e)}
 
-@app.get("/team_status/{team_id}")
+@app.get("/api/team_status/{team_id}")
 async def get_team_status(team_id: str):
     try:
         if team_id not in team_scores:
@@ -404,7 +404,7 @@ async def get_team_status(team_id: str):
         logging.error(f"Error getting team status: {str(e)}")
         return {"error": str(e)}
 
-@app.post("/admin/reset_game")
+@app.post("/api/admin/reset_game")
 async def reset_game(admin_key: str = Header(None)):
     if admin_key != settings.ADMIN_KEY:
         raise HTTPException(status_code=403, detail="Invalid admin key")
