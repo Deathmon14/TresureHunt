@@ -19,7 +19,7 @@ from utils import generate_bonus_challenge, generate_congrats_message, verify_an
 app = FastAPI(middleware=security_middleware)
 limiter = get_rate_limiter()
 app.state.limiter = limiter
-app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
+app.mount("/", StaticFiles(directory="frontend", html=True), name="root")
 
 ''' def verify_answer_static(correct_answer: str, team_answer: str) -> bool:
     """Static verification without LLM"""
