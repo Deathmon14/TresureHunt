@@ -359,7 +359,7 @@
       }
       
       try {
-        const data = await fetchWithError("/register_team", {
+        const data = await fetchWithError("/api/register_team", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({ team_id: teamId, team_name: teamName })
@@ -396,7 +396,7 @@
       }
       
       try {
-        const data = await fetchWithError("/verify_answer", {
+        const data = await fetchWithError("/api/verify_answer", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -435,7 +435,7 @@
       }
       
       try {
-        const data = await fetchWithError("/buy_hint", {
+        const data = await fetchWithError("/api/buy_hint", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -461,7 +461,7 @@
 
     async function usePowerup(type) {
       try {
-        const data = await fetchWithError("/use_powerup", {
+        const data = await fetchWithError("/api/use_powerup", {
           method: "POST",
           headers: { "Content-Type": "application/json" },
           body: JSON.stringify({
@@ -497,7 +497,7 @@
 
     async function getTeamStatus() {
       try {
-        const data = await fetchWithError(`/team_status/${gameState.teamId}`, {
+        const data = await fetchWithError(`/api/team_status/${gameState.teamId}`, {
           method: "GET",
           headers: { "Content-Type": "application/json" }
         });
@@ -523,7 +523,7 @@
 
     async function getLeaderboard() {
       try {
-        const data = await fetchWithError("/leaderboard", {
+        const data = await fetchWithError("/api/leaderboard", {
           method: "GET",
           headers: { "Content-Type": "application/json" }
         });
