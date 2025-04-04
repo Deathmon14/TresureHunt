@@ -16,7 +16,7 @@ from fastapi import Request
 
 from utils import generate_bonus_challenge, generate_congrats_message, verify_answer_hybrid
 
-app = FastAPI(middleware=security_middleware)
+app = FastAPI(middleware=security_middleware, root_path="/api")
 limiter = get_rate_limiter()
 app.state.limiter = limiter
 app.mount("/ui", StaticFiles(directory="frontend", html=True), name="frontend")
