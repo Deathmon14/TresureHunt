@@ -36,7 +36,7 @@ def generate_hint_static(answer: str) -> str:
     return f"🔍 HINT: The answer starts with '{answer[0]}' and has {len(answer)} letters."
 
 @app.post("/api/register_team")
-@limiter.limit("10/minute")
+# @limiter.limit("10/minute")
 async def register_team(request: Request):
     try:
         data = await request.json()
@@ -85,7 +85,7 @@ async def register_team(request: Request):
 
 # Update the verify_answer function in mainv4.py
 @app.post("/api/verify_answer")
-@limiter.limit("5/minute")
+# @limiter.limit("5/minute")
 async def verify_answer(request: Request):
     data = await request.json()
     try:
@@ -251,7 +251,7 @@ async def handle_bonus_challenge(team_id: str, team_answer: str) -> dict:
         logging.error(f"Error handling bonus: {str(e)}")
         return {"response": f"Error processing bonus: {str(e)}"}
 @app.post("/api/buy_hint")
-@limiter.limit("3/minute")
+# @limiter.limit("3/minute")
 async def buy_hint(request: Request, data: dict):
     try:
         team_id = data.get("team_id", "").strip()
@@ -289,7 +289,7 @@ async def buy_hint(request: Request, data: dict):
         return {"response": f"Error getting hint: {str(e)}"}
 
 @app.post("/api/use_powerup")
-@limiter.limit("5/minute")
+# @limiter.limit("5/minute")
 async def use_powerup(request: Request, data: dict):
     try:
         team_id = data.get("team_id", "").strip()
