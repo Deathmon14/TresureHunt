@@ -37,8 +37,9 @@ def generate_hint_static(answer: str) -> str:
 
 @app.post("/api/register_team")
 @limiter.limit("10/minute")
-async def register_team(request: Request, data: dict):
+async def register_team(request: Request):
     try:
+        data = await request.json()
         team_id = data.get("team_id", "").strip()
         team_name = data.get("team_name", f"Team {team_id}").strip()
         
