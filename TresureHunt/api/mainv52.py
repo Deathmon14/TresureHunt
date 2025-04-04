@@ -85,7 +85,8 @@ async def register_team(request: Request, data: dict):
 # Update the verify_answer function in mainv4.py
 @app.post("/api/verify_answer")
 @limiter.limit("5/minute")
-async def verify_answer(request: Request, data: dict):
+async def verify_answer(request: Request):
+    data = await request.json()
     try:
         team_id = data.get("team_id", "").strip()
         route = data.get("route", "").strip()
