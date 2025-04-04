@@ -1,8 +1,8 @@
 from fastapi import FastAPI, HTTPException, Header, Request
-from config import settings
-from middleware import security_middleware, get_rate_limiter
-from clues1 import clues, bonus_challenges
-from team_data import (
+from .config import settings
+from .middleware import security_middleware, get_rate_limiter
+from .clues1 import clues, bonus_challenges
+from .team_data import (
     team_progress, team_scores, team_streaks, team_routes,
     team_timers, team_powerups, team_bonus_challenges, save_team_data
 )
